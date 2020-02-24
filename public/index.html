@@ -11,64 +11,69 @@
     <script src='/app.js'></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <meta name="google-signin-client_id" content="ABC123ADDYOURID.apps.googleusercontent.com" />
+    <meta name="google-signin-client_id"
+      content="711964818606-t0s0chiglafshv6f3l66hl0lumg86e95.apps.googleusercontent.com" />
 
     <style type="text/css" media="all">
-      body { margin-top: 30px; }
+      body { margin-top: 60px; }
       .templates { display: none; }
+      .fixed-width-text { font-family: "Consolas","Courier New",monospace }
+      .no-select {
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+      }
+      .nav-container {
+        padding-left: 40px;
+        background: #666;
+      }
+      .nav-container a { color: white; }
+      .fixed-top {
+        position: fixed;
+        top: 0px;
+        z-index: 1024;
+      }
       .inline-list {
-      margin-bottom: 0px; /* Skeleton reset */
+        margin-bottom: 0px; /* Skeleton reset */
       }
       .inline-list li {
-      display: inline;
-      margin: 0 20px 0 0;
-      }
-      .fixed-top {
-      position: fixed;
-      top: 0px;
-      z-index: 1024;
-      }
-      .no-select {
-      user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      -moz-user-select: none;
+        display: inline;
+        margin: 0 20px 0 0;
       }
       .hover-links a { text-decoration: none; }
       .hover-links a:hover { text-decoration: underline; }
-      .nav-container {
-      padding-left: 40px;
-      background: #666;
-      }
-      .nav-container a { color: white; }
       .navbar-padding {
-      padding-top: 7px;
-      display: inline-block;
+        padding-top: 7px;
+        display: inline-block;
+      }
+      .text-lg {
+        font-size: 32px;
       }
     </style>
 
   </head>
 <body>
   <div class='markup'>
-
     <div class='nav-container no-select fixed-top u-full-width'>
       <ul class='inline-list hover-links nav-list six columns'>
         <li><a class='text-lg' href="#">LearnJS</a></li>
         <li><a href="#problem-1">Start</a></li>
       </ul>
-      <div class='four columns'>
+      <div class='four columns signin-bar'>
         <span class='navbar-padding u-pull-right'>
-          <span class="g-signin2" data-onsuccess="googleSignIn"></span> </span>
+          <span class="g-signin2" data-onsuccess="googleSignIn"></span>
+        </span>
       </div>
     </div>
-
-
     <div class='view-container container'>
     </div>
-
     <div class='templates'>
-
+      <div class='profile-link navbar-padding-lg'>
+        <a href="#profile"></a>
+      </div>
       <div class='landing-view'>
+        <!-- Markup Continues... -->
         <div class='row'>
           <div class='one-half column'>
             <h3>Learn JavaScript, one puzzle at a time.</h3>
@@ -80,12 +85,17 @@
         </div>
       </div>
 
+      <div class='profile-view'>
+        <h3>Your Profile</h3>
+        <div class='email'></div>
+      </div>
+
       <div class='problem-view'>
         <h3 class='title'></h3>
         <p data-name='description'></p>
         <pre><code data-name='code'></code></pre>
         <form>
-          <textarea class='u-full-width answer'></textarea>
+          <textarea class='u-full-width answer fixed-width-text'></textarea>
           <div>
             <button class='button-primary check-btn'>Check Answer</button>
             <p class='result'></p>
@@ -93,18 +103,18 @@
         </form>
       </div>
 
-
-      <div class='correct-flash'> <span>Correct!</span> <a>Next Problem</a>
-      </div>
-
-      <li class='skip-btn'> <a>Skip This Problem</a>
+      <li class='skip-btn'>
+        <a>Skip This Problem</a>
       </li>
 
-
-    </div>    <!--templates-->
-  </div>      <!--markup-->
+      <div class='correct-flash'>
+        <span>Correct!</span> <a>Next Problem</a>
+      </div>
+    </div>
+  </div>
   <script type='text/javascript'>
     $(window).ready(learnjs.appOnReady);
   </script>
 </body>
+
 </html>
