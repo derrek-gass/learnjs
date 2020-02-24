@@ -1,1 +1,1 @@
-http://learnjs.derrekgass.com.s3-website-us-west-1.amazonaws.com
+http://learnjs.derrekgass.com.s3-website-us-west-2.amazonaws.com
