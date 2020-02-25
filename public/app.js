@@ -5,6 +5,8 @@ var learnjs = {
 
 learnjs.identity = new $.Deferred();
 
+learnjs.identity = new $.Deferred();
+
 learnjs.problems = [{
         description: "What is truth?",
         code: "function problem() { return __; }"
