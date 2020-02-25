@@ -8,8 +8,8 @@
     "Description": "",
     "Timeout": 3,
     "MemorySize": 128,
-    "LastModified": "2020-02-25T23:02:59.261+0000",
-    "CodeSha256": "z3r3pHImqfJt6pFCXmmcIbWUJKqRaSgNhEB/dgsRRfY=",
+    "LastModified": "2020-02-25T23:31:58.498+0000",
+    "CodeSha256": "pGlR2gV4JBEZIET+74JXXoqjqP28YvroY4pvp+st2g4=",
     "Version": "$LATEST",
     "VpcConfig": {
         "SubnetIds": [],
@@ -19,7 +19,7 @@
     "TracingConfig": {
         "Mode": "PassThrough"
     },
-    "RevisionId": "1874152f-0df1-4404-8f9d-7fcfde344654",
+    "RevisionId": "a3322873-e6f4-4597-86bc-2a7e46476e5e",
     "State": "Active",
     "LastUpdateStatus": "Successful"
 }
