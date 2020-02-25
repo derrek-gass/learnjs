@@ -1,0 +1,20 @@
+{
+    "FunctionName": "echo",
+    "FunctionArn": "arn:aws:lambda:us-west-2:843541679087:function:echo",
+    "Runtime": "nodejs12.x",
+    "Role": "arn:aws:iam::843541679087:role/learnjs_lambda_exec",
+    "Handler": "index.handler",
+    "CodeSize": 787243,
+    "Description": "",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "LastModified": "2020-02-25T21:25:40.075+0000",
+    "CodeSha256": "BevUfeQUNZrGWB8Ai8w+H7Lyy0vi9SqQRbu/wmvi49A=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "30bed03b-0d61-4afa-9408-def22e450626",
+    "State": "Active",
+    "LastUpdateStatus": "Successful"
+}

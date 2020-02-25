@@ -1,11 +1,3 @@
-/***
- * Excerpted from "Serverless Single Page Apps",
- * published by The Pragmatic Bookshelf.
- * Copyrights apply to this code. It may not be used to create training material,
- * courses, books, articles, and the like. Contact us if you are in doubt.
- * We make no guarantees that this code is fit for any purpose.
- * Visit http://www.pragmaticprogrammer.com/titles/brapps for more book information.
- ***/
 describe('LearnJS', function () {
     beforeEach(function () {
         learnjs.identity = new $.Deferred();
@@ -100,7 +92,7 @@ describe('LearnJS', function () {
         beforeEach(function () {
             dbspy = jasmine.createSpyObj('db', ['get', 'put', 'scan']);
             spyOn(AWS.DynamoDB, 'DocumentClient').and.returnValue(dbspy);
-            spyOn(learnjs, 'sendDbRequest');
+            spyOn(learnjs, 'sendAwsRequest');
             identityObj = {
                 id: 'COGNITO_ID'
             };
@@ -113,10 +105,10 @@ describe('LearnJS', function () {
             });
 
             it('reads the item from the database', function (done) {
-                learnjs.sendDbRequest.and.returnValue(new $.Deferred().resolve('item'));
+                learnjs.sendAwsRequest.and.returnValue(new $.Deferred().resolve('item'));
                 learnjs.countAnswers(1).then(function (item) {
                     expect(item).toEqual('item');
-                    expect(learnjs.sendDbRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
+                    expect(learnjs.sendAwsRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
                     expect(dbspy.scan).toHaveBeenCalledWith({
                         TableName: 'learnjs',
                         Select: 'COUNT',
@@ -132,7 +124,7 @@ describe('LearnJS', function () {
             it('resubmits the request on retry', function () {
                 learnjs.countAnswers(1);
                 spyOn(learnjs, 'countAnswers').and.returnValue('promise');
-                expect(learnjs.sendDbRequest.calls.first().args[1]()).toEqual('promise');
+                expect(learnjs.sendAwsRequest.calls.first().args[1]()).toEqual('promise');
                 expect(learnjs.countAnswers).toHaveBeenCalledWith(1);
             });
         });
@@ -144,10 +136,10 @@ describe('LearnJS', function () {
             });
 
             it('reads the item from the database', function (done) {
-                learnjs.sendDbRequest.and.returnValue(new $.Deferred().resolve('item'));
+                learnjs.sendAwsRequest.and.returnValue(new $.Deferred().resolve('item'));
                 learnjs.fetchAnswer(1).then(function (item) {
                     expect(item).toEqual('item');
-                    expect(learnjs.sendDbRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
+                    expect(learnjs.sendAwsRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
                     expect(dbspy.get).toHaveBeenCalledWith({
                         TableName: 'learnjs',
                         Key: {
@@ -164,11 +156,41 @@ describe('LearnJS', function () {
                     answer: 'false'
                 });
                 spyOn(learnjs, 'fetchAnswer').and.returnValue('promise');
-                expect(learnjs.sendDbRequest.calls.first().args[1]()).toEqual('promise');
+                expect(learnjs.sendAwsRequest.calls.first().args[1]()).toEqual('promise');
                 expect(learnjs.fetchAnswer).toHaveBeenCalledWith(1);
             });
         });
 
+        describe('popularAnswers', function () {
+            var lambdaSpy;
+            beforeEach(function () {
+                lambdaSpy = jasmine.createSpyObj('lambda', ['invoke']);
+                spyOn(AWS, 'Lambda').and.returnValue(lambdaSpy);
+                lambdaSpy.invoke.and.returnValue('request');
+            });
+
+            it('reads the item from the database', function (done) {
+                learnjs.sendAwsRequest.and.returnValue(new $.Deferred().resolve('item'));
+                learnjs.popularAnswers(1).then(function (item) {
+                    expect(item).toEqual('item');
+                    expect(learnjs.sendAwsRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
+                    expect(lambdaSpy.invoke).toHaveBeenCalledWith({
+                        FunctionName: 'popularAnswers',
+                        Payload: JSON.stringify({
+                            problemNumber: 1
+                        })
+                    });
+                    done();
+                });
+            });
+
+            it('resubmits the request on retry', function () {
+                learnjs.popularAnswers(1);
+                spyOn(learnjs, 'popularAnswers').and.returnValue('promise');
+                expect(learnjs.sendAwsRequest.calls.first().args[1]()).toEqual('promise');
+                expect(learnjs.popularAnswers).toHaveBeenCalledWith(1);
+            });
+        });
 
         describe('saveAnswer', function () {
             beforeEach(function () {
@@ -177,7 +199,7 @@ describe('LearnJS', function () {
 
             it('writes the item to the database', function () {
                 learnjs.saveAnswer(1, {});
-                expect(learnjs.sendDbRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
+                expect(learnjs.sendAwsRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
                 expect(dbspy.put).toHaveBeenCalledWith({
                     TableName: 'learnjs',
                     Item: {
@@ -193,7 +215,7 @@ describe('LearnJS', function () {
                     answer: 'false'
                 });
                 spyOn(learnjs, 'saveAnswer').and.returnValue('promise');
-                expect(learnjs.sendDbRequest.calls.first().args[1]()).toEqual('promise');
+                expect(learnjs.sendAwsRequest.calls.first().args[1]()).toEqual('promise');
                 expect(learnjs.saveAnswer).toHaveBeenCalledWith(1, {
                     answer: 'false'
                 });
@@ -202,7 +224,7 @@ describe('LearnJS', function () {
 
     });
 
-    describe('sendDbRequest', function () {
+    describe('sendAwsRequest', function () {
         var request, requestHandlers, promise, retrySpy;
         beforeEach(function () {
             requestHandlers = {};
@@ -211,7 +233,7 @@ describe('LearnJS', function () {
                 requestHandlers[eventName] = callback;
             });
             retrySpy = jasmine.createSpy('retry');
-            promise = learnjs.sendDbRequest(request, retrySpy);
+            promise = learnjs.sendAwsRequest(request, retrySpy);
         });
 
         it('resolves the returned promise on success', function (done) {
