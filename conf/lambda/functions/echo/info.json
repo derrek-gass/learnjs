@@ -3,18 +3,23 @@
     "FunctionArn": "arn:aws:lambda:us-west-2:843541679087:function:echo",
     "Runtime": "nodejs12.x",
     "Role": "arn:aws:iam::843541679087:role/learnjs_lambda_exec",
-    "Handler": "index.handler",
-    "CodeSize": 787243,
+    "Handler": "index.echo",
+    "CodeSize": 787236,
     "Description": "",
     "Timeout": 3,
     "MemorySize": 128,
-    "LastModified": "2020-02-25T21:25:40.075+0000",
-    "CodeSha256": "BevUfeQUNZrGWB8Ai8w+H7Lyy0vi9SqQRbu/wmvi49A=",
+    "LastModified": "2020-02-25T23:02:59.261+0000",
+    "CodeSha256": "z3r3pHImqfJt6pFCXmmcIbWUJKqRaSgNhEB/dgsRRfY=",
     "Version": "$LATEST",
+    "VpcConfig": {
+        "SubnetIds": [],
+        "SecurityGroupIds": [],
+        "VpcId": ""
+    },
     "TracingConfig": {
         "Mode": "PassThrough"
     },
-    "RevisionId": "30bed03b-0d61-4afa-9408-def22e450626",
+    "RevisionId": "1874152f-0df1-4404-8f9d-7fcfde344654",
     "State": "Active",
     "LastUpdateStatus": "Successful"
 }

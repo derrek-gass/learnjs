@@ -3,18 +3,23 @@
     "FunctionArn": "arn:aws:lambda:us-west-2:843541679087:function:popularAnswers",
     "Runtime": "nodejs12.x",
     "Role": "arn:aws:iam::843541679087:role/learnjs_lambda_exec",
-    "Handler": "index.handler",
-    "CodeSize": 787243,
+    "Handler": "index.popularAnswers",
+    "CodeSize": 787236,
     "Description": "",
     "Timeout": 3,
     "MemorySize": 128,
-    "LastModified": "2020-02-25T21:25:42.660+0000",
-    "CodeSha256": "BevUfeQUNZrGWB8Ai8w+H7Lyy0vi9SqQRbu/wmvi49A=",
+    "LastModified": "2020-02-25T23:03:01.728+0000",
+    "CodeSha256": "z3r3pHImqfJt6pFCXmmcIbWUJKqRaSgNhEB/dgsRRfY=",
     "Version": "$LATEST",
+    "VpcConfig": {
+        "SubnetIds": [],
+        "SecurityGroupIds": [],
+        "VpcId": ""
+    },
     "TracingConfig": {
         "Mode": "PassThrough"
     },
-    "RevisionId": "e0cfc7b2-0ffb-4266-8aef-912f0615b874",
+    "RevisionId": "36347cf6-7f02-41c0-847a-fc5745d15ddd",
     "State": "Active",
     "LastUpdateStatus": "Successful"
 }
