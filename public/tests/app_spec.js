@@ -1,5 +1,14 @@
 describe('LearnJS', function () {
+    var fakeWorker;
     beforeEach(function () {
+        fakeWorker = {
+            postMessage: function (msg) {
+                fakeWorker.onmessage({
+                    data: eval(msg)
+                })
+            }
+        };
+        spyOn(window, 'Worker').and.returnValue(fakeWorker);
         learnjs.identity = new $.Deferred();
     });
 
@@ -175,7 +184,7 @@ describe('LearnJS', function () {
                     expect(item).toEqual('item');
                     expect(learnjs.sendAwsRequest).toHaveBeenCalledWith('request', jasmine.any(Function));
                     expect(lambdaSpy.invoke).toHaveBeenCalledWith({
-                        FunctionName: 'popularAnswers',
+                        FunctionName: 'learnjs_popularAnswers',
                         Payload: JSON.stringify({
                             problemNumber: 1
                         })
@@ -482,6 +491,10 @@ describe('LearnJS', function () {
                     spyOn(learnjs, 'saveAnswer');
                     view.find('.answer').val('true');
                     view.find('.check-btn').click();
+                });
+
+                it('uses a worker to check the answer safely', function () {
+                    expect(window.Worker).toHaveBeenCalledWith('worker.js');
                 });
 
                 it('saves the result', function () {
